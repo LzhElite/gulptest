@@ -2,7 +2,6 @@
  * Created by Elite on 2015/9/8.
  */
 var gulp=require('gulp');
-var sass=require('gulp-sass');
 /*
  * 拷贝多个文件
  * pipe管道
@@ -12,15 +11,8 @@ var sass=require('gulp-sass');
  * */
 
 gulp.task('copyHtml',function(){
-    return gulp.src('./app/*.html')
+    return gulp.src('./app/index.html')
         .pipe(gulp.dest('dist'));
-});
-/*任务监视
-gulp.task('watch',function(){
-    gulp.watch('路径',['任务名称']);
-})*/
-gulp.task('watch',function(){
-    gulp.watch('./app/*.html',['copyHtml']);
 });
 
 gulp.task('copyImage',function(){
@@ -35,7 +27,5 @@ gulp.task('copyImage',function(){
     return gulp.src(['./app/scripts/*.js','!./app/scripts/page.js'])
         .pipe(gulp.dest('dist/scripts'));
 });
-
-
 
 gulp.task('default',['copyHtml','copyImage','copyScripts']);

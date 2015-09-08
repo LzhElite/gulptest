@@ -2,7 +2,6 @@
  * Created by Elite on 2015/9/8.
  */
 var gulp=require('gulp');
-var sass=require('gulp-sass');
 /*
  * 拷贝多个文件
  * pipe管道
