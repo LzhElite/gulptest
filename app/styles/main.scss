@@ -1,4 +1,11 @@
 $base:red;
+$fc:blue;
+$size:36px;
+/*这是一个测试gulp*/
 body{
   color:$base;
+  font-size: $size;
+  p{
+    color: $fc;
+  }
 }

@@ -5,22 +5,17 @@ var gulp=require('gulp');
 var sass=require('gulp-sass');
 var less=require('gulp-less');
 var minifyCss =require('gulp-minify-css');
-var connect=require('gulp-connect');
 /*
- * 实时预览
+ * 拷贝多个文件
+ * pipe管道
+ * **匹配任何字符，包括路径分隔符
+ * * 匹配除了路径分隔符之外的所有字符
+ * ！ 表示拒绝匹配，排除文件
  * */
-gulp.task('server',function(){
-    connect.server({
-        root:'dist',//设置文件根目录
-        port:8080,//设置端口
-        livereload:true//动态加载，实时刷新
-    });
-});
 
 gulp.task('copyHtml',function(){
     return gulp.src('./app/*.html')
-        .pipe(gulp.dest('dist'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest('dist'));
 });
 /*任务监视
  gulp.task('watch',function(){
@@ -28,9 +23,6 @@ gulp.task('copyHtml',function(){
  })*/
 gulp.task('watch',function(){
     gulp.watch('./app/*.html',['copyHtml']);
-    gulp.watch('./app/styles/page.less',['less']);
-    gulp.watch('./app/styles/main.scss',['sass']);
-
 });
 
 gulp.task('copyImage',function(){
@@ -48,21 +40,19 @@ gulp.task('copyScripts',function(){
 
 /* sass编译 */
 gulp.task('sass',function(){
-    return gulp.src('./app/styles/main.scss')
+    return gulp.src('app/styles/main.scss')
         .pipe(sass())
         .pipe(minifyCss())
         .pipe(gulp.dest('dist/styles'))
-        .pipe(connect.reload())
 });
 
 /*less编译*/
 
 gulp.task('less',function(){
-    return gulp.src('./app/styles/page.less')
+    return gulp.src('app/styles/page.less')
         .pipe(less())
         .pipe(minifyCss())
         .pipe(gulp.dest('dist/styles'))
-        .pipe(connect.reload())
 });
-gulp.task('default',['server','watch']);
-//gulp.task('default',['copyHtml','copyImage','copyScripts','sass','less']);
+
+gulp.task('default',['copyHtml','copyImage','copyScripts','sass','less']);
