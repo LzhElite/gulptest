@@ -12,6 +12,7 @@ var rename=require('gulp-rename');//重命名 gulp-rename is a gulp plugin to re
 
 var minifyCss =require('gulp-minify-css');//压缩css
 var imagemin=require('gulp-imagemin');//压缩图片
+
 /*
 * 合并js文件*/
 gulp.task('concatScript',function(){
@@ -51,7 +52,6 @@ gulp.task('watch',function(){
 
 gulp.task('copyImage',function(){
     return gulp.src('./app/images/**/*')
-        .pipe(imagemin())
         .pipe(gulp.dest('dist/images'));
 });
 

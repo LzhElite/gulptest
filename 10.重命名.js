@@ -4,14 +4,11 @@
 var gulp=require('gulp');
 var sass=require('gulp-sass');//sass插件
 var less=require('gulp-less');//less插件
-
+var minifyCss =require('gulp-minify-css');//压缩css
 var connect=require('gulp-connect');//启动一个自动刷新的服务器
 var concat=require('gulp-concat');//合并文件
 var uglify=require('gulp-uglify');//压缩
 var rename=require('gulp-rename');//重命名 gulp-rename is a gulp plugin to rename files easily.
-
-var minifyCss =require('gulp-minify-css');//压缩css
-var imagemin=require('gulp-imagemin');//压缩图片
 /*
 * 合并js文件*/
 gulp.task('concatScript',function(){
@@ -51,7 +48,6 @@ gulp.task('watch',function(){
 
 gulp.task('copyImage',function(){
     return gulp.src('./app/images/**/*')
-        .pipe(imagemin())
         .pipe(gulp.dest('dist/images'));
 });
 
@@ -80,7 +76,7 @@ gulp.task('sass',function(){
 gulp.task('less',function(){
     return gulp.src('./app/styles/page.less')
         .pipe(less())
-        .pipe(minifyCss())
+        .pipe(uglify())
         .pipe(rename(function(path){
             path.basename +='.min';
         }))

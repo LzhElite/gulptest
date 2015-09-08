@@ -2,25 +2,16 @@
  * Created by Elite on 2015/9/8.
  */
 var gulp=require('gulp');
-var sass=require('gulp-sass');//sass插件
-var less=require('gulp-less');//less插件
-
-var connect=require('gulp-connect');//启动一个自动刷新的服务器
-var concat=require('gulp-concat');//合并文件
-var uglify=require('gulp-uglify');//压缩
-var rename=require('gulp-rename');//重命名 gulp-rename is a gulp plugin to rename files easily.
-
+var sass=require('gulp-sass');
+var less=require('gulp-less');
 var minifyCss =require('gulp-minify-css');//压缩css
-var imagemin=require('gulp-imagemin');//压缩图片
+var connect=require('gulp-connect');
+var concat=require('gulp-concat');
 /*
 * 合并js文件*/
 gulp.task('concatScript',function(){
     return gulp.src(['./app/scripts/*.js'])
         .pipe(concat('join.js'))
-        .pipe(uglify())
-        .pipe(rename(function(path){
-            path.basename +='.min';
-        }))
         .pipe(gulp.dest('dist/scripts'));
 });
 /*
@@ -47,11 +38,11 @@ gulp.task('watch',function(){
     gulp.watch('./app/*.html',['copyHtml']);
     gulp.watch('./app/styles/page.less',['less']);
     gulp.watch('./app/styles/main.scss',['sass']);
+
 });
 
 gulp.task('copyImage',function(){
     return gulp.src('./app/images/**/*')
-        .pipe(imagemin())
         .pipe(gulp.dest('dist/images'));
 });
 
@@ -68,9 +59,6 @@ gulp.task('sass',function(){
     return gulp.src('./app/styles/main.scss')
         .pipe(sass())
         .pipe(minifyCss())
-        .pipe(rename(function(path){
-            path.basename +='.min';
-        }))
         .pipe(gulp.dest('dist/styles'))
         .pipe(connect.reload())
 });
@@ -81,9 +69,6 @@ gulp.task('less',function(){
     return gulp.src('./app/styles/page.less')
         .pipe(less())
         .pipe(minifyCss())
-        .pipe(rename(function(path){
-            path.basename +='.min';
-        }))
         .pipe(gulp.dest('dist/styles'))
         .pipe(connect.reload())
 });
